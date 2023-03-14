@@ -1,3 +1,5 @@
-from pages.index_page import IndexPage
+from pages.home_page import HomePage
+from pages.login_page import LoginPage
 
-index_page = IndexPage()
+home_page = HomePage()
+login_page = LoginPage()
