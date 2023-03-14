@@ -2,7 +2,9 @@ class UserData:
 
     name = 'ProgerTester'
     email = 'progertester1@gmail.com'
+    incorrectEmail = 'tester1@gmail.com'
     password = 'B42!t#)9qz'
+    incorrectPassword = '3456787654'
     first_name = 'Progger'
     last_name = 'Tesster'
     company = 'LuxeQuality'

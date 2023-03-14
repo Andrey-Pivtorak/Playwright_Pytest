@@ -4,12 +4,14 @@ class LoginPage:
 
     nameInput = 'input[data-qa="signup-name"]'
     emailInput = 'input[data-qa="signup-email"]'
-    emailFilled = '#email'
+    emailLoginInput = 'input[data-qa="login-email"]'
+    passwordInput = 'input[data-qa="login-password"]'
+    loginBtn = 'button[data-qa="login-button"]'
+    # emailFilled = '#email'
     signupBtn = 'button[data-qa="signup-button"]'
     accountInfoTitle = '.login-form :first-child b'
-
     titleRadioBtn = '#id_gender1'
-    passwordInput = '#password'
+    passwordInput_signup = '#password'
     daySelect = '#days'
     monthSelect = '#months'
     yearSelect = '#years'
@@ -28,6 +30,7 @@ class LoginPage:
     createAccBtn = 'button[data-qa="create-account"]'
     continueBtn = 'a[data-qa="continue-button"]'
     deleteAccountBtn = 'a[href="/delete_account"]'
+    logoutBtn = '.navbar-nav a[href="/logout"]'
 
 
 
