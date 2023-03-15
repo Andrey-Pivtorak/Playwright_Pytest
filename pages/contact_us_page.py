@@ -8,5 +8,4 @@ class ContactUsPage:
     messageInput = 'textarea[data-qa="message"]'
     uploadFileBtn = 'input[type="file"]'
     submitBtn = 'input[data-qa="submit-button"]'
-    
-    message = 'h2 ~ div.alert-success'
+    homeBtn = '.navbar-nav a[href="/"]'

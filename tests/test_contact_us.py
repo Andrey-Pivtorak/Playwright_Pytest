@@ -1,6 +1,7 @@
 from playwright.sync_api import expect, Page
 import pages
 import data
+import config
 
 
 class TestContactUs:
@@ -16,5 +17,7 @@ class TestContactUs:
 
         page.on("dialog", lambda dialog: dialog.accept())
         page.click(pages.contact_us_page.submitBtn)
-
         expect(page.locator('h2 ~ div.alert-success')).to_be_visible()
+
+        page.click(pages.contact_us_page.homeBtn)
+        expect(page).to_have_url(config.url.DOMAIN)

@@ -4,7 +4,7 @@ class HomePage:
 
     loginBtn = 'a[href="/login"]'
     contactUsBtn = '.navbar-nav a[href="/contact_us"]'
-
+    testCasesBtn = '.navbar-nav a[href="/test_cases"]'
 
     # def open_homepage(self, page: Page) -> None:
     #     page.goto(config.url.DOMAIN)
