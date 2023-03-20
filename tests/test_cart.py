@@ -80,5 +80,3 @@ class TestCart:
         pages.products_page.delete_all_products(page)
         expect(page.locator('#empty_cart b')).to_have_text('Cart is empty!')
 
-
-    

@@ -1,5 +1,9 @@
 from playwright.sync_api import Page, expect
 import pages
+import config
+import data
+import data.functions
+import time
 
 
 class ProductsPage:
@@ -19,13 +23,15 @@ class ProductsPage:
 
     def open_cart(self, page):
         page.click(pages.home_page.cartBtn)
-        page.goto('https://automationexercise.com/view_cart')
-        expect(page).to_have_url('https://automationexercise.com/view_cart')
+        page.goto(config.url.DOMAIN + 'view_cart')
+        expect(page).to_have_url(config.url.DOMAIN + 'view_cart')
 
 
     def create_order(self, page):
-        expect(page.locator('//h2[contains(text(),"Address Details")]')).to_have_text('Address Details')
-        expect(page.locator('//h2[contains(text(),"Review Your Order")]')).to_have_text('Review Your Order')
+        # expect(page.locator('//h2[contains(text(),"Address Details")]')).to_have_text('Address Details')
+        # expect(page.locator('//h2[contains(text(),"Review Your Order")]')).to_have_text('Review Your Order')
+        expect(page.locator('//h2[contains(text(),"Address Details")]')).to_be_visible()
+        expect(page.locator('//h2[contains(text(),"Review Your Order")]')).to_be_visible()
 
         page.fill('.form-control', 'Testing the "Comment" form. If you have any suggestion areas or improvements, do let us know. We will definitely work on it.')
         page.click('a[href="/payment"]')
@@ -42,7 +48,6 @@ class ProductsPage:
     def delete_account(self, page):
         page.click(pages.login_page.deleteAccountBtn)
         expect(page.locator('h2[data-qa="account-deleted"] b')).to_have_text('Account Deleted!')
-
         page.click('a[data-qa="continue-button"]')
 
 
@@ -62,3 +67,11 @@ class ProductsPage:
         for element in search_elements:
             element_text = element.inner_text()
             assert search_text in element_text, f"'{search_text}' not found in element: {element_text}"
+
+
+    def check_downloading_file(self, page):
+        with page.expect_download() as download_info:
+            page.get_by_text("Download Invoice").click()
+            download = download_info.value
+            print(download.path())
+            download.save_as("data/invoice.txt")

@@ -2,6 +2,7 @@ from playwright.sync_api import expect, Page
 import pages
 import config
 import data
+import data.functions
 import time
 
 
@@ -19,16 +20,7 @@ class TestProducts:
                 f'//{tags[i]}[contains(text(),"{texts[i]}")]')).to_be_visible()
 
     def test_should_search_product(self, open_products_page, page: Page):
-        # search_text = 'Jeans'
-        # page.fill(pages.products_page.searchbarInput, search_text)
-        # page.click(pages.products_page.searchBtn)
-
-        # search_elements = page.query_selector_all('.productinfo p')
-        # for element in search_elements:
-        #     element_text = element.inner_text()
-        #     assert search_text in element_text, f"'{search_text}' not found in element: {element_text}"
         pages.products_page.search_product(page)
-
 
 
     def test_should_view_category_products(self, home_page, page: Page):
@@ -45,6 +37,7 @@ class TestProducts:
         page.click('#Men ul > :first-child a')
         expect(page.locator('//h2[contains(text(),"Tshirts")]')).to_have_text('Men - Tshirts Products')
 
+
     def test_should_view_and_cart_brand_products(self, open_products_page, page: Page):
         expect(page.locator('.brands_products h2')).to_be_visible()
         page.click(pages.home_page.poloBrandLink)
@@ -57,7 +50,7 @@ class TestProducts:
         expect(page.locator('//h2[contains(text(),"Babyhug")] /..')).to_be_visible()
 
 
-    def test_search_products_and_verify_cart_after_login(self, open_products_page, page: Page):
+    def test_should_search_products_and_verify_cart_after_login(self, open_products_page, page: Page):
         expect(page.locator('//h2[contains(text(),"All Products")]')).to_be_visible()
         pages.products_page.search_product(page)
 
@@ -81,7 +74,7 @@ class TestProducts:
             expect(prod).to_be_visible()
 
 
-    def test_add_review_on_product(self, open_products_page, page: Page):
+    def test_should_add_review_on_product(self, open_products_page, page: Page):
         page.click('a[href="/product_details/5"]')
         page.goto(config.url.DOMAIN + 'product_details/5')
         expect(page.locator('a[href="#reviews"]')).to_be_visible()
@@ -95,7 +88,7 @@ class TestProducts:
         expect(page.locator('.alert-success span')).to_have_text('Thank you for your review.')
 
 
-    def test_add_to_cart_fro_recommended_items(self, home_page, page: Page):
+    def test_should_add_to_cart_from_recommended_items(self, home_page, page: Page):
         page.locator('.recommended_items > h2').scroll_into_view_if_needed()
         expect(page.locator('.recommended_items > h2')).to_be_visible()
         expect(page.locator('.recommended_items > h2')).to_have_text('recommended items')
@@ -103,4 +96,19 @@ class TestProducts:
         page.click('#cartModal a[href="/view_cart"]')
         expect(page.locator('tbody .cart_description h4')).to_be_visible()
 
-        time.sleep(5)
+
+    def test_should_download_invoice_after_purchase_order(self, home_page, page: Page):
+        pages.products_page.add_products(page)
+        pages.products_page.open_cart(page)
+        page.click('a.check_out')
+        page.click('.modal-body a[href="/login"]')
+        data.functions.registration_new_user(page)
+        pages.products_page.open_cart(page)
+        page.click('a.check_out')
+
+        pages.products_page.create_order(page)
+        pages.products_page.check_downloading_file(page)
+        
+        page.click('a[data-qa="continue-button"]')
+        pages.products_page.delete_account(page)
+
