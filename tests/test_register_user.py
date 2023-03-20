@@ -6,14 +6,14 @@ from playwright.sync_api import expect, Page
 
 class TestRegister:
 
-    def test_user_should_be_able_to_register(self, login_page: Page, page: Page):
-        expect(login_page.locator('.signup-form h2')).to_be_visible()
+    def test_user_should_be_able_to_register(self, login_page, page: Page):
+        expect(page.locator('.signup-form h2')).to_be_visible()
 
-        login_page.fill(pages.login_page.nameInput, data.user_data.name)
-        login_page.fill(pages.login_page.emailInput,
+        page.fill(pages.login_page.nameInput, data.user_data.name)
+        page.fill(pages.login_page.emailInput,
                   data.functions.generate_random_email())
 
-        login_page.locator(pages.login_page.signupBtn).click()
+        page.locator(pages.login_page.signupBtn).click()
         expect(page.locator('.login-form :first-child b')).to_be_visible()
         page.locator(pages.login_page.titleRadioBtn).click()
         page.fill(pages.login_page.passwordInput_signup, data.user_data.password)
