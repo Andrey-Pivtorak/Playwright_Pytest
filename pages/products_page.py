@@ -1,9 +1,7 @@
 from playwright.sync_api import Page, expect
 import pages
 import config
-import data
 import data.functions
-import time
 
 
 class ProductsPage:
@@ -28,13 +26,12 @@ class ProductsPage:
 
 
     def create_order(self, page):
-        # expect(page.locator('//h2[contains(text(),"Address Details")]')).to_have_text('Address Details')
-        # expect(page.locator('//h2[contains(text(),"Review Your Order")]')).to_have_text('Review Your Order')
         expect(page.locator('//h2[contains(text(),"Address Details")]')).to_be_visible()
         expect(page.locator('//h2[contains(text(),"Review Your Order")]')).to_be_visible()
 
         page.fill('.form-control', 'Testing the "Comment" form. If you have any suggestion areas or improvements, do let us know. We will definitely work on it.')
         page.click('a[href="/payment"]')
+        page.goto(config.url.DOMAIN + 'payment')
 
         page.fill('input[data-qa="name-on-card"]', 'SuperVisa')
         page.fill('input[data-qa="card-number"]', '1234567898765432')
@@ -49,6 +46,7 @@ class ProductsPage:
         page.click(pages.login_page.deleteAccountBtn)
         expect(page.locator('h2[data-qa="account-deleted"] b')).to_have_text('Account Deleted!')
         page.click('a[data-qa="continue-button"]')
+        page.goto(config.url.DOMAIN)
 
 
     def delete_all_products(self, page: Page):

@@ -6,9 +6,7 @@ import config
 class TestVerifyTestCases:
 
     def test_should_verify_test_cases_page(self, home_page: Page, page: Page):
-
         home_page.click(pages.home_page.testCasesBtn)
-        page.goto('https://automationexercise.com/test_cases')
+        page.goto(config.url.DOMAIN + 'test_cases')
         expect(page).to_have_url(config.url.DOMAIN + 'test_cases')
-        expect(page.locator(
-            '//b[contains(text(),"Test Cases")]')).to_be_visible()
+        expect(page.locator('//b[contains(text(),"Test Cases")]')).to_be_visible()

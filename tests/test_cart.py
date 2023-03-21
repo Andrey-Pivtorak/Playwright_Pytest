@@ -2,7 +2,6 @@ from playwright.sync_api import expect, Page
 import pages
 import data.functions
 import data
-import time
 
 
 class TestCart:
@@ -40,15 +39,8 @@ class TestCart:
 
         data.functions.registration_new_user(page)
         expect(page.locator('.fa-user ~ b')).to_have_text(data.user_data.name)
-
         pages.products_page.open_cart(page)
         page.click('a.check_out')
-
-        #====
-        # page.goto('https://automationexercise.com/payment')
-        # expect(page.locator('#payment-form .alert-success')).to_contain_text('Your order has been placed successfully!')
-        #====
-
         pages.products_page.create_order(page)
         pages.products_page.delete_account(page)
 
@@ -71,7 +63,8 @@ class TestCart:
         pages.products_page.open_cart(page)
         page.click('a.check_out')
         pages.products_page.create_order(page)
-        pages.products_page.delete_account(page)
+        #Not a logical action !!!
+        # pages.products_page.delete_account(page)
 
 
     def test_should_remove_products_from_cart(self, home_page, page: Page):

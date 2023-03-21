@@ -1,5 +1,5 @@
-from playwright.sync_api import Page
 import pages
+import config
 import data
 
 class LoginPage:
@@ -9,7 +9,6 @@ class LoginPage:
     emailLoginInput = 'input[data-qa="login-email"]'
     passwordInput = 'input[data-qa="login-password"]'
     loginBtn = 'button[data-qa="login-button"]'
-    # emailFilled = '#email'
     signupBtn = 'button[data-qa="signup-button"]'
     accountInfoTitle = '.login-form :first-child b'
     titleRadioBtn = '#id_gender1'
@@ -39,6 +38,7 @@ class LoginPage:
         page.fill(pages.login_page.emailLoginInput, data.user_data.email)
         page.fill(pages.login_page.passwordInput, data.user_data.password)
         page.locator(pages.login_page.loginBtn).click()
+        page.goto(config.url.DOMAIN)
 
 
     def fill_login_form_incorrect(self, page):
@@ -49,6 +49,5 @@ class LoginPage:
 
     def fill_signUp_form(self, page):
         page.fill(pages.login_page.nameInput, data.user_data.name)
-        page.fill(pages.login_page.emailInput,
-                        data.user_data.email)
+        page.fill(pages.login_page.emailInput, data.user_data.email)
         page.locator(pages.login_page.signupBtn).click()

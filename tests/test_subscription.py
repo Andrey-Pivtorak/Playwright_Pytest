@@ -1,6 +1,5 @@
 from playwright.sync_api import expect, Page
 import pages
-import time
 import data
 
 

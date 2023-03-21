@@ -6,8 +6,9 @@ import config
 
 class TestContactUs:
 
-    def test_contact_us_form(self, home_page: Page, page: Page):
-        home_page.locator(pages.home_page.contactUsBtn).click()
+    def test_contact_us_form(self, home_page, page: Page):
+        page.locator(pages.home_page.contactUsBtn).click()
+        page.goto(config.url.DOMAIN + 'contact_us')
         expect(page.locator('//h2[contains(text(),"Get In Touch")]')).to_be_visible()
         page.fill(pages.contact_us_page.nameInput, data.user_data.name)
         page.fill(pages.contact_us_page.emailInput, data.user_data.email)
@@ -20,4 +21,5 @@ class TestContactUs:
         expect(page.locator('h2 ~ div.alert-success')).to_be_visible()
 
         page.click(pages.contact_us_page.homeBtn)
+        page.goto(config.url.DOMAIN)
         expect(page).to_have_url(config.url.DOMAIN)

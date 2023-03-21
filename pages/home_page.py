@@ -1,6 +1,3 @@
-from playwright.sync_api import Page, expect
-
-
 class HomePage:
 
     loginBtn = 'a[href="/login"]'
@@ -14,10 +11,3 @@ class HomePage:
     menCategoryLink = '#accordian > :nth-child(2)  a[href="#Men"]'
     poloBrandLink = '.brands-name ul a[href="/brand_products/Polo"]'
     babyhugBrandLink = '.brands-name ul a[href="/brand_products/Babyhug"]'
-
-    # def open_homepage(self, page: Page) -> None:
-    #     page.goto(config.url.DOMAIN)
-    #     expect(page).to_have_url(config.url.DOMAIN)
-
-    # def click_login_button(self, page: Page):
-    #     page.locator(self.loginBtn).click()

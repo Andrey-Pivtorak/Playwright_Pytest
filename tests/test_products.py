@@ -3,7 +3,6 @@ import pages
 import config
 import data
 import data.functions
-import time
 
 
 class TestProducts:
@@ -16,8 +15,8 @@ class TestProducts:
         tags = pages.products_page.productInfo_tags
         texts = pages.products_page.productInfo_texts
         for i in range(0, len(tags)-1):
-            expect(page.locator(
-                f'//{tags[i]}[contains(text(),"{texts[i]}")]')).to_be_visible()
+            expect(page.locator(f'//{tags[i]}[contains(text(),"{texts[i]}")]')).to_be_visible()
+
 
     def test_should_search_product(self, open_products_page, page: Page):
         pages.products_page.search_product(page)
@@ -55,21 +54,18 @@ class TestProducts:
         pages.products_page.search_product(page)
 
         products = page.query_selector_all('.productinfo > .add-to-cart')
-
         for product in products:
             product.click()
             page.click('button[data-dismiss="modal"]')
 
         page.click(pages.home_page.cartBtn)
         cart_products = page.locator('#cart_info_table tbody tr').all()
-
         for prod in cart_products:
             expect(prod).to_be_visible()
 
         page.click(pages.home_page.loginBtn)
         pages.login_page.fill_login_form(page)
         page.click(pages.home_page.cartBtn)
-
         for prod in cart_products:
             expect(prod).to_be_visible()
 
@@ -102,13 +98,15 @@ class TestProducts:
         pages.products_page.open_cart(page)
         page.click('a.check_out')
         page.click('.modal-body a[href="/login"]')
+        page.goto(config.url.DOMAIN + 'login')
         data.functions.registration_new_user(page)
         pages.products_page.open_cart(page)
         page.click('a.check_out')
+        page.goto(config.url.DOMAIN + 'checkout')
 
         pages.products_page.create_order(page)
         pages.products_page.check_downloading_file(page)
-        
-        page.click('a[data-qa="continue-button"]')
-        pages.products_page.delete_account(page)
 
+        page.click('a[data-qa="continue-button"]')
+        page.goto(config.url.DOMAIN)
+        pages.products_page.delete_account(page)
