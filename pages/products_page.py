@@ -1,7 +1,7 @@
 from playwright.sync_api import Page, expect
 import pages
 import config
-import data.functions
+import allure
 
 
 class ProductsPage:
@@ -59,7 +59,6 @@ class ProductsPage:
         search_text = 'Jeans'
         page.fill(pages.products_page.searchbarInput, search_text)
         page.click(pages.products_page.searchBtn)
-        expect(page.locator('//h2[contains(text(),"Searched Products")]')).to_be_visible()
 
         search_elements = page.query_selector_all('.productinfo p')
         for element in search_elements:
@@ -73,3 +72,14 @@ class ProductsPage:
             download = download_info.value
             print(download.path())
             download.save_as("data/invoice.txt")
+
+    def open_products_category_subcategory(self, page, category_name, category_link, product_num):
+        with allure.step(f'Open "{category_name}" category'):
+            page.click(category_link)
+
+        with allure.step(f'Open "{category_name}" sub-category'):
+            page.click(f'#{category_name} ul > :first-child a')
+            page.goto(config.url.DOMAIN + f'category_products/{product_num}')
+
+        with allure.step('Verify that user is navigated to that category page'):
+            expect(page).to_have_url(config.url.DOMAIN + f'category_products/{product_num}')

@@ -5,6 +5,7 @@ import data
 import data.functions
 import pages
 import config
+import allure
 
 
 def generate_password(length):
@@ -62,3 +63,11 @@ def registration_new_user(page: Page):
 
     page.locator(pages.login_page.continueBtn).click()
     page.goto(config.url.DOMAIN)
+
+
+def take_screenshot(page) -> None:
+    allure.attach(
+        body=page.screenshot(full_page=True),
+        # name=name,
+        attachment_type=allure.attachment_type.PNG
+    )

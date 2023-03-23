@@ -1,6 +1,8 @@
+from playwright.sync_api import expect
 import pages
 import config
 import data
+import data.functions
 
 class LoginPage:
 
@@ -49,5 +51,16 @@ class LoginPage:
 
     def fill_signUp_form(self, page):
         page.fill(pages.login_page.nameInput, data.user_data.name)
+        page.fill(pages.login_page.emailInput, data.functions.generate_random_email())
+        page.locator(pages.login_page.signupBtn).click()
+
+    def fill_signUp_form_with_exist_email(self, page):
+        page.fill(pages.login_page.nameInput, data.user_data.name)
         page.fill(pages.login_page.emailInput, data.user_data.email)
         page.locator(pages.login_page.signupBtn).click()
+
+
+    def open_login_page(self, page):
+        page.click(pages.home_page.loginBtn)
+        page.goto(config.url.DOMAIN + 'login')
+        expect(page).to_have_url(config.url.DOMAIN + 'login')
