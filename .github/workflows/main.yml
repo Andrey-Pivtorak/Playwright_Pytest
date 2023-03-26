@@ -1,0 +1,50 @@
+name: Pytest CI
+
+on:
+    workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: ubuntu-20.04
+        timeout-minutes: 30
+        steps:
+            - uses: actions/checkout@v3
+            - name: Set up Python 3.10
+              uses: actions/setup-python@v3
+              with:
+                  python-version: 3.8
+            - name: Install dependencies
+              run: |
+                  python -m pip install --upgrade pip
+                  pip install pipenv
+                  pip install exceptiongroup
+                  pipenv install --system
+                  playwright install chromium
+            - name: Run tests
+              run: pytest
+
+            - name: Test automation
+              uses: simple-elf/allure-report-action@master
+              if: always()
+              id: allure-report
+              with:
+                allure_results: reports
+                gh_pages: gh-pages
+                allure_report: allure-report
+                allure_history: allure-history
+            - name: Deploy
+              if: always()
+              uses: peaceiris/actions-gh-pages@v2
+              env:
+                PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                PUBLISH_BRANCH: gh-pages  # default: gh-pages
+                PUBLISH_DIR: allure-report
+            - name: Report Slack
+              if: always()
+              uses: ravsamhq/notify-slack-action@v2
+              with:
+                status: ${{ job.status }}
+                message_format: ${{ secrets.GH_ACTION_URL }}
+                notify_when: 'success,failure'
+              env:
+                SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}
