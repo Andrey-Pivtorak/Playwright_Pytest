@@ -78,7 +78,7 @@ def playwright():
 
 @pytest.fixture(scope='session')
 def browser(playwright: Playwright, request) -> Browser:
-    browser_name = request.config.getoption("--browser")
+    browser_name = request.config.getoption("--test-browser")
     browser = get_browser(playwright, browser_name)
     yield browser
     browser.close()
