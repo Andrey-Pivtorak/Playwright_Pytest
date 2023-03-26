@@ -1,6 +1,6 @@
 import pytest
 import allure
-from playwright.sync_api import Playwright, Browser, BrowserType, Page, sync_playwright, Browser, BrowserContext
+from playwright.sync_api import Playwright, Browser, Page, sync_playwright, Browser, BrowserContext
 import os
 
 
@@ -62,7 +62,7 @@ def get_context(browser: Browser) -> BrowserContext:
 
 def pytest_addoption(parser):
     parser.addoption(
-        "--browser",
+        # "--browser",
         action="store",
         default="chrome",
         choices=["chrome", "firefox", "edge"],
