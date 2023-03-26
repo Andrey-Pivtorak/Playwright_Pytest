@@ -62,7 +62,7 @@ def get_context(browser: Browser) -> BrowserContext:
 
 def pytest_addoption(parser):
     parser.addoption(
-        "--browser",
+        "--test-browser",
         action="store",
         default="chrome",
         choices=["chrome", "firefox", "edge"],
