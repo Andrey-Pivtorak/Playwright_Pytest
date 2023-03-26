@@ -14,7 +14,6 @@ jobs:
               run: |
                   python -m pip install --upgrade pip
                   pip install pipenv
-                  pipenv install --system
                   playwright install chromium
             - name: Run tests
               run: pytest
