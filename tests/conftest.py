@@ -60,14 +60,14 @@ def get_context(browser: Browser) -> BrowserContext:
     return browser.new_context()
 
 
-def pytest_addoption(parser):
-    parser.addoption(
-        # "--browser",
-        action="store",
-        default="chrome",
-        choices=["chrome", "firefox", "edge"],
-        help="Specify the browser to use for testing"
-    )
+# def pytest_addoption(parser):
+#     parser.addoption(
+#         "--browser",
+#         action="store",
+#         default="chrome",
+#         choices=["chrome", "firefox", "edge"],
+#         help="Specify the browser to use for testing"
+#     )
 
 
 @pytest.fixture(scope='session')
