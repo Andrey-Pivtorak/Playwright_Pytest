@@ -17,6 +17,7 @@ jobs:
                   pip install playwright pytest-playwright
                   playwright install chromium
                   pip install allure-pytest
+                  pip install pytest-xvfb
             - name: Run tests
               run: pytest
 
