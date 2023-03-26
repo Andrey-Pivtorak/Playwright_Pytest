@@ -29,3 +29,5 @@
 * _allure serve reports_
 
 ## Test results:
+![](https://github.com/Andrey-Pivtorak/Playwright_Pytest/blob/master/data/report.png)
+
