@@ -19,7 +19,7 @@ jobs:
                   pip install allure-pytest
                   pip install pytest-xvfb
             - name: Run tests
-              run: pytest
+              run: pytest --browser chrome
 
             - name: Test automation
               uses: simple-elf/allure-report-action@master
