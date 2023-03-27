@@ -21,9 +21,9 @@
 * _pytest -n auto_
 
 ## Use command to run all the tests with different browsers:
-* _pytest --browser=chrome_
-* _pytest --browser=firefox_
-* _pytest --browser=edge_
+* _pytest --test-browser=chrome_
+* _pytest --test-browser=firefox_
+* _pytest --test-browser=edge_
 
 ## Run allure report:
 * _allure serve reports_
