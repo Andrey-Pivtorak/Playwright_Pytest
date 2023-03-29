@@ -1,4 +1,4 @@
-# WebdriverIO project
+# Playwright_Pytest project
 
 ## Clone the repository. Run the command in command line:
 * _https://github.com/Andrey-Pivtorak/Playwright_Pytest.git_
